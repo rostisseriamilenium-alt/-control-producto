@@ -39,6 +39,7 @@ function cargarDatos(){
     const d = JSON.parse(datos);
 
     stock = d.stock ?? 0;
+    
     document.getElementById("stockInicial").value = stock;
 
     vendidosSin = d.vendidosSin ?? 0;
