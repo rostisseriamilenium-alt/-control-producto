@@ -1,25 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Control de Producto</title>
-  <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Control de Producto</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<h1>🍗 Control de Producto</h1>
+<div class="contenedor">
+
+<h1>🍗 CONTROL DE PRODUCTO</h1>
+
+<div class="caja">
 
 <h2>Stock inicial</h2>
 
-<input id="stockInicial" type="number" placeholder="Ejemplo 100">
+<input
+type="number"
+id="stockInicial"
+placeholder="Ejemplo: 100">
 
-<button>Iniciar</button>
+<button onclick="iniciarStock()">
+INICIAR
+</button>
 
-<h2>Quedan</h2>
+</div>
 
-<h1 id="quedan">0</h1>
+<div class="caja">
+
+<h3>QUEDAN</h3>
+
+<div id="quedan">
+0
+</div>
+
+<div class="ventas">
+
+<p>Sin encargo:
+<span id="sinEncargo">0</span></p>
+
+<p>Con encargo:
+<span id="conEncargo">0</span></p>
+
+</div>
+
+</div>
+
+<div class="caja">
+
+<h2>Venta</h2>
+
+<input
+type="number"
+id="cantidadVenta"
+value="1"
+min="1">
+
+<div class="radio">
+
+<label>
+
+<input
+type="radio"
+name="tipo"
+value="1"
+checked>
+
+1 Pollo
+
+</label>
+
+<label>
+
+<input
+type="radio"
+name="tipo"
+value="0.5">
+
+1/2 Pollo
+
+</label>
+
+</div>
+
+<button class="rojo"
+onclick="vender(false)">
+
+SIN ENCARGO
+
+</button>
+
+<button class="naranja"
+onclick="vender(true)">
+
+CON ENCARGO
+
+</button>
+
+</div>
+
+<h2>Producción</h2>
+
+<div id="productos">
+
+</div>
+
+<div class="botones">
+
+<button onclick="deshacer()">
+
+↩ Deshacer
+
+</button>
+
+<button onclick="reiniciar()">
+
+🔄 Reiniciar día
+
+</button>
+
+</div>
+
+</div>
+
 <script src="app.js"></script>
+
 </body>
+
 </html>
