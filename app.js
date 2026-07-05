@@ -169,3 +169,7 @@ guardarDatos();
 }
 
 actualizar();
+}
+
+cargarDatos();
+actualizar();
