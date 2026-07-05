@@ -152,6 +152,24 @@ guardarDatos();
 }
 
 function reiniciar(){
+    function añadirStock(){
+
+    let extra = parseFloat(document.getElementById("stockExtra").value);
+
+    if(isNaN(extra) || extra <= 0){
+        return;
+    }
+
+    stock += extra;
+
+    document.getElementById("stockInicial").value = stock;
+
+    document.getElementById("stockExtra").value = "";
+
+    actualizar();
+    guardarDatos();
+
+}
 
     if(confirm("¿Seguro que quieres reiniciar el día?")){
 
