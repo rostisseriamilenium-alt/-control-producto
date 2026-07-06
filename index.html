@@ -2,141 +2,161 @@
 <html lang="es">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rostisseria Milenium</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Control de Producto</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="contenedor">
 
-<h1>Rostisseria Milenium</h1>
+    <h1>🍗 Rostisseria Milenium</h1>
 
-<div class="caja">
+    <!-- STOCK -->
 
-<h2>Stock inicial</h2>
+    <div class="caja">
 
-<div class="filaStock">
+        <h2>Stock inicial</h2>
 
-    <input id="stockInicial" type="number" placeholder="Ejemplo 100">
+        <div class="filaStock">
 
-    <button onclick="iniciarStock()">Iniciar</button>
+            <input
+                id="stockInicial"
+                type="number"
+                placeholder="Ejemplo: 100">
 
-</div>
+            <button onclick="iniciarStock()">
+                INICIAR
+            </button>
 
-<div class="filaAñadir">
+        </div>
 
-    <input
-        id="stockExtra"
-        type="number"
-        placeholder="+ Stock">
+        <div class="filaAñadir">
 
-    <button onclick="añadirStock()">
-        ➕
-    </button>
-    
-</div>
+            <input
+                id="stockExtra"
+                type="number"
+                placeholder="+">
 
-<div class="caja">
+            <button onclick="añadirStock()">
+                Añadir
+            </button>
 
-<h3>QUEDAN</h3>
+        </div>
 
-<div id="quedan">
-0
-</div>
+    </div>
 
-<div class="ventas">
+    <!-- QUEDAN -->
 
-<p>Sin encargo:
-<span id="sinEncargo">0</span></p>
+    <div class="caja">
 
-<p>Con encargo:
-<span id="conEncargo">0</span></p>
+        <h2>QUEDAN</h2>
 
-</div>
+        <div id="quedan">
+            0
+        </div>
 
-</div>
+        <div class="ventas">
 
-<div class="caja">
+            <p>
+                🔴 Sin encargo:
+                <span id="sinEncargo">0</span>
+            </p>
 
-<h2>Venta</h2>
+            <p>
+                🟠 Con encargo:
+                <span id="conEncargo">0</span>
+            </p>
 
-<input
-type="number"
-id="cantidadVenta"
-value="1"
-min="1">
+        </div>
 
-<div class="radio">
+    </div>
 
-<label>
+    <!-- VENTA -->
 
-<input
-type="radio"
-name="tipo"
-value="1"
-checked>
+    <div class="caja">
 
-1 Pollo
+        <h2>Venta</h2>
 
-</label>
+        <input
+            id="cantidadVenta"
+            type="number"
+            value="1"
+            min="1">
 
-<label>
+        <div class="radio">
 
-<input
-type="radio"
-name="tipo"
-value="0.5">
+            <label>
 
-1/2 Pollo
+                <input
+                    type="radio"
+                    name="tipo"
+                    value="1"
+                    checked>
 
-</label>
+                1 Pollo
 
-</div>
+            </label>
 
-<button class="rojo"
-onclick="vender(false)">
+            <label>
 
-SIN ENCARGO
+                <input
+                    type="radio"
+                    name="tipo"
+                    value="0.5">
 
-</button>
+                1/2 Pollo
 
-<button class="naranja"
-onclick="vender(true)">
+            </label>
 
-CON ENCARGO
+        </div>
 
-</button>
+        <button
+            class="rojo"
+            onclick="vender(false)">
 
-</div>
+            SIN ENCARGO
 
-<h2>Producción</h2>
+        </button>
 
-<div id="productos">
+        <button
+            class="naranja"
+            onclick="vender(true)">
 
-</div>
+            CON ENCARGO
 
-<div class="botones">
+        </button>
 
-<button onclick="deshacer()">
+    </div>
 
-↩ Deshacer
+    <!-- PRODUCCIÓN -->
 
-</button>
+    <div class="caja">
 
-<button onclick="reiniciar()">
+        <h2>Producción</h2>
 
-🔄 Reiniciar día
+        <div id="productos">
 
-</button>
+        </div>
 
-</div>
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="botones">
+
+        <button onclick="deshacer()">
+            ↩ Deshacer
+        </button>
+
+        <button onclick="reiniciar()">
+            🔄 Reiniciar día
+        </button>
+
+    </div>
 
 </div>
 
