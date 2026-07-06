@@ -1,5 +1,5 @@
 // =========================
-// CONTROL DE PRODUCTO v1
+// CONTROL DE PRODUCTO
 // =========================
 
 let stock = 0;
@@ -7,6 +7,15 @@ let vendidosSin = 0;
 let vendidosCon = 0;
 
 let historial = [];
+
+const productos = {
+    pan: 0,
+    canelones: 0,
+    caliu: 0,
+    bravas: 0,
+    fritas: 0
+};
+
 // ------------------------
 // GUARDAR DATOS
 // ------------------------
@@ -14,13 +23,11 @@ let historial = [];
 function guardarDatos(){
 
     const datos = {
-
         stock,
         vendidosSin,
         vendidosCon,
         historial,
         productos
-
     };
 
     localStorage.setItem(
@@ -29,6 +36,10 @@ function guardarDatos(){
     );
 
 }
+
+// ------------------------
+// CARGAR DATOS
+// ------------------------
 
 function cargarDatos(){
 
@@ -39,26 +50,19 @@ function cargarDatos(){
     const d = JSON.parse(datos);
 
     stock = d.stock ?? 0;
-    
-    document.getElementById("stockInicial").value = stock;
-
     vendidosSin = d.vendidosSin ?? 0;
-    
-
     vendidosCon = d.vendidosCon ?? 0;
-
     historial = d.historial ?? [];
 
-    Object.assign(productos,d.productos);
+    Object.assign(productos, d.productos);
+
+    document.getElementById("stockInicial").value = stock;
 
 }
-const productos = {
-    pan: 0,
-    canelones: 0,
-    caliu: 0,
-    bravas: 0,
-    fritas: 0
-};
+
+// ------------------------
+// INICIAR STOCK
+// ------------------------
 
 function iniciarStock(){
 
@@ -69,87 +73,15 @@ function iniciarStock(){
         return;
     }
 
-    cargarDatos();
-actualizar();
+    actualizar();
     guardarDatos();
-guardarDatos();
-}
-
-function actualizar(){
-
-    document.getElementById("quedan").innerHTML = stock;
-
-    document.getElementById("sinEncargo").innerHTML = vendidosSin;
-
-    document.getElementById("conEncargo").innerHTML = vendidosCon;
 
 }
 
-function vender(conEncargo){
+// ------------------------
+// AÑADIR STOCK
+// ------------------------
 
-    let cantidad = parseFloat(document.getElementById("cantidadVenta").value);
-
-    if(isNaN(cantidad) || cantidad<=0){
-
-        cantidad = 1;
-
-    }
-
-    let tipo = parseFloat(document.querySelector('input[name="tipo"]:checked').value);
-
-    let total = cantidad * tipo;
-
-    if(stock-total<0){
-
-        alert("No quedan suficientes pollos");
-
-        return;
-
-    }
-
-    historial.push({
-
-        stock,
-        vendidosSin,
-        vendidosCon
-
-    });
-
-    stock -= total;
-
-    if(conEncargo){
-
-        vendidosCon += total;
-
-    }else{
-
-        vendidosSin += total;
-
-    }
-
-    actualizar();
-guardarDatos();
-}
-
-function deshacer(){
-
-    if(historial.length===0){
-
-        return;
-
-    }
-
-    let ultimo = historial.pop();
-
-    stock = ultimo.stock;
-
-    vendidosSin = ultimo.vendidosSin;
-
-    vendidosCon = ultimo.vendidosCon;
-
-    actualizar();
-guardarDatos();
-}
 function añadirStock(){
 
     let extra = parseFloat(document.getElementById("stockExtra").value);
@@ -167,46 +99,106 @@ function añadirStock(){
     guardarDatos();
 
 }
-function reiniciar(){
-    function añadirStock(){
 
-    let extra = parseFloat(document.getElementById("stockExtra").value);
+// ------------------------
+// ACTUALIZAR PANTALLA
+// ------------------------
 
-    if(isNaN(extra) || extra <= 0){
+function actualizar(){
+
+    document.getElementById("quedan").innerHTML = stock;
+    document.getElementById("sinEncargo").innerHTML = vendidosSin;
+    document.getElementById("conEncargo").innerHTML = vendidosCon;
+
+}
+
+// ------------------------
+// VENDER
+// ------------------------
+
+function vender(conEncargo){
+
+    let cantidad = parseFloat(document.getElementById("cantidadVenta").value);
+
+    if(isNaN(cantidad) || cantidad <= 0){
+        cantidad = 1;
+    }
+
+    let tipo = parseFloat(
+        document.querySelector('input[name="tipo"]:checked').value
+    );
+
+    let total = cantidad * tipo;
+
+    if(stock - total < 0){
+        alert("No quedan suficientes pollos");
         return;
     }
 
-    stock += extra;
+    historial.push({
+        stock,
+        vendidosSin,
+        vendidosCon
+    });
 
-    document.getElementById("stockInicial").value = stock;
+    stock -= total;
 
-    document.getElementById("stockExtra").value = "";
+    if(conEncargo){
+        vendidosCon += total;
+    }else{
+        vendidosSin += total;
+    }
 
     actualizar();
     guardarDatos();
 
 }
 
+// ------------------------
+// DESHACER
+// ------------------------
+
+function deshacer(){
+
+    if(historial.length === 0){
+        return;
+    }
+
+    let ultimo = historial.pop();
+
+    stock = ultimo.stock;
+    vendidosSin = ultimo.vendidosSin;
+    vendidosCon = ultimo.vendidosCon;
+
+    actualizar();
+    guardarDatos();
+
+}
+
+// ------------------------
+// REINICIAR
+// ------------------------
+
+function reiniciar(){
+
     if(confirm("¿Seguro que quieres reiniciar el día?")){
 
         stock = 0;
-
         vendidosSin = 0;
-
         vendidosCon = 0;
-
         historial = [];
 
-        document.getElementById("stockInicial").value="";
+        document.getElementById("stockInicial").value = "";
+        document.getElementById("stockExtra").value = "";
 
         actualizar();
-guardarDatos();
+        guardarDatos();
+
     }
 
 }
 
-actualizar();
-}
+// ------------------------
 
 cargarDatos();
 actualizar();
