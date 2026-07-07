@@ -15,6 +15,7 @@ const productos = {
     bravas: 0,
     fritas: 0
 };
+let packPendiente = "";
 
 // ------------------------
 // GUARDAR DATOS
@@ -148,6 +149,114 @@ function vender(conEncargo){
     }else{
         vendidosSin += total;
     }
+
+    actualizar();
+    guardarDatos();
+
+}
+// ------------------------
+// PACK 1
+// ------------------------
+
+function pack1(){
+
+    if(stock < 0.5){
+        alert("No quedan pollos");
+        return;
+    }
+
+    historial.push({
+        stock,
+        vendidosSin,
+        vendidosCon,
+        productos: {...productos}
+    });
+
+    stock -= 0.5;
+
+    let conEncargo = document.getElementById("conEncargoCheck").checked;
+
+    if(conEncargo){
+        vendidosCon += 0.5;
+    }else{
+        vendidosSin += 0.5;
+    }
+
+    productos.caliu += 0.5;
+
+    actualizar();
+    guardarDatos();
+
+}
+
+// ------------------------
+// PACK 2
+// ------------------------
+
+function pack2(){
+
+    if(stock < 1){
+        alert("No quedan pollos");
+        return;
+    }
+
+    packPendiente = "pack2";
+
+    document.getElementById("selectorPatatas").style.display="block";
+
+}
+
+// ------------------------
+// PACK 3
+// ------------------------
+
+function pack3(){
+
+    if(stock < 1){
+        alert("No quedan pollos");
+        return;
+    }
+
+    packPendiente = "pack3";
+
+    document.getElementById("selectorPatatas").style.display="block";
+
+}
+
+// ------------------------
+// PATATAS
+// ------------------------
+
+function seleccionarPatata(tipo){
+
+    historial.push({
+        stock,
+        vendidosSin,
+        vendidosCon,
+        productos:{...productos}
+    });
+
+    stock--;
+
+    let conEncargo = document.getElementById("conEncargoCheck").checked;
+
+    if(conEncargo){
+        vendidosCon++;
+    }else{
+        vendidosSin++;
+    }
+
+    productos.pan++;
+
+    productos[tipo]++;
+
+    if(packPendiente=="pack3"){
+        productos.canelones++;
+    }
+
+    packPendiente="";
+
+    document.getElementById("selectorPatatas").style.display="none";
 
     actualizar();
     guardarDatos();
